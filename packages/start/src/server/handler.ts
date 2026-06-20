@@ -202,6 +202,7 @@ function initFromFlash(ctx: FetchEvent) {
 function handleShellCompleteRedirect(context: PageEvent, e: H3Event) {
   return () => {
     if (context.response && context.response.headers.get("Location")) {
+      if (e.handled) return;
       const status = getExpectedRedirectStatus(context.response);
       e.res.status = status;
       e.res.headers.set("Location", context.response.headers.get("Location")!);
